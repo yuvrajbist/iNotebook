@@ -10,8 +10,8 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
         const notes = await Notes.find({ user: req.user.id });
         res.json(notes)
     } catch (error) {
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
         }
     }
 });
@@ -23,9 +23,9 @@ router.post('/addnote', fetchuser, [
 ], async (req, res) => {
     try {
         const { title, description, tag } = req.body;
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
         }
 
         const note = new Notes({
@@ -35,8 +35,8 @@ router.post('/addnote', fetchuser, [
         const savedNote = await note.save()
         res.json(savedNote)
     } catch (error) {
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
         }
     }
 });
@@ -61,8 +61,8 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
         res.json(note)
 
     } catch (error) {
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
         }
     }
 });
@@ -80,8 +80,8 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
         note = await Notes.findByIdAndDelete(req.params.id)
         res.json({ "Success": "note has been delete", note: note });
     } catch (error) {
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
         }
     }
 });

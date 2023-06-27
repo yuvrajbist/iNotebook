@@ -6,22 +6,27 @@ import {
 } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import About from './components/About';
+import NoteState from './context/notes/NoteState';
+import Alert from './components/Alert';
 
 function App() {
   return (
     <>
-    <Navbar/>
-    <Router>
-        <NavBar />
-        <div className="container my-3">
-          <Routes>
-            <Route exact path="/" element={<Home/>}>
-            </Route>
-            <Route exact path="/about" element={<Home/>}>
-            </Route>
-          </Routes>
-        </div>
-      </Router>
+      <NoteState>
+        <Router>
+          <Navbar />
+          <Alert alert={{type:"primary",msg:"no"}}/>
+          <div className="container my-4">
+            <Routes>
+              <Route exact path="/" element={<Home />}>
+              </Route>
+              <Route exact path="/about" element={<About />}>
+              </Route>
+            </Routes>
+          </div>
+        </Router>
+      </NoteState>
     </>
   );
 }

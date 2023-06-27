@@ -14,9 +14,9 @@ router.post('/createuser', [
     body('email', "Enter a valid Email").isEmail(),
     body('password', 'Password must have a minimum of 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
     }
 
     try {
@@ -51,9 +51,9 @@ router.post('/login', [
     body('email', "Enter a valid Email").isEmail(),
     body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
     }
 
     const { email, password } = req.body;
